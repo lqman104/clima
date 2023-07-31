@@ -7,10 +7,10 @@ class LoadingScreen extends StatefulWidget {
 }
 
 class _LoadingScreenState extends State<LoadingScreen> {
-  void getLocation() {
+  void getLocation() async {
     try {
       Location location = Location();
-      location.getCurrentLocation();
+      await location.getCurrentLocation();
       print("Long: ${location.longitude}");
       print("Lat: ${location.latitude}");
     } catch (e) {
