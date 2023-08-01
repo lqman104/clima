@@ -45,13 +45,18 @@ class _LocationScreenState extends State<LocationScreen> {
     });
   }
 
-  void openCityScreen() {
-    Navigator.push(
+  void openCityScreen() async {
+    var cityName = await Navigator.push(
       context,
       MaterialPageRoute(builder: (context) {
         return CityScreen();
       }),
     );
+
+    if(cityName != null) {
+      var weatherData = await WeatherRepository.getCityWeather(cityName);
+      updateUi(weatherData);
+    }
   }
 
   @override

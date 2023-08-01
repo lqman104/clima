@@ -17,4 +17,14 @@ class WeatherRepository {
     return await networkHelper.getData();
   }
 
+  static Future<dynamic> getCityWeather(String cityName) async {
+    Map<String, dynamic> query = {
+      "q": cityName,
+      "units": "metric",
+    };
+
+    NetworkHelper networkHelper = NetworkHelper(path: "weather", query: query);
+    return await networkHelper.getData();
+  }
+
 }
