@@ -14,15 +14,14 @@ class _LoadingScreenState extends State<LoadingScreen> {
     try {
       Location location = Location();
       await location.getCurrentLocation();
-      double lat = location.latitude;
-      double long = location.longitude;
 
-      Uri uri = Uri.https("api.openweathermap.org", "/data/2.5/weather", {
-        "lat": lat.toString(),
-        "lon": long.toString(),
-      });
+      Map<String, dynamic> query = {
+        "lat": location.latitude.toString(),
+        "lon": location.longitude.toString(),
+        "units": "metric",
+      };
 
-      NetworkHelper networkHelper = NetworkHelper(uri: uri);
+      NetworkHelper networkHelper = NetworkHelper(path: "weather", query: query);
       var json = await networkHelper.getData();
 
       Map<String, dynamic> formattedResponse = {
