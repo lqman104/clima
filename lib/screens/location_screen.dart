@@ -1,4 +1,5 @@
 import 'package:clima/repository/weather_repository.dart';
+import 'package:clima/screens/city_screen.dart';
 import 'package:clima/services/weather.dart';
 import 'package:clima/utilities/constants.dart';
 import 'package:flutter/material.dart';
@@ -27,7 +28,7 @@ class _LocationScreenState extends State<LocationScreen> {
 
   void updateUi(dynamic weatherData) {
     setState(() {
-      if(weatherData == null) {
+      if (weatherData == null) {
         temperature = 0;
         cityName = 'your location';
         weatherIcon = 'Error';
@@ -42,6 +43,15 @@ class _LocationScreenState extends State<LocationScreen> {
       weatherIcon = weatherModel.getWeatherIcon(condition);
       message = weatherModel.getMessage(temperature);
     });
+  }
+
+  void openCityScreen() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) {
+        return CityScreen();
+      }),
+    );
   }
 
   @override
@@ -76,7 +86,9 @@ class _LocationScreenState extends State<LocationScreen> {
                     ),
                   ),
                   TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      openCityScreen();
+                    },
                     child: Icon(
                       Icons.location_city,
                       size: 50.0,
