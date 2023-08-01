@@ -1,5 +1,7 @@
+import 'package:clima/screens/location_screen.dart';
 import 'package:clima/services/networking.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 import '../services/location.dart';
 
@@ -24,13 +26,12 @@ class _LoadingScreenState extends State<LoadingScreen> {
       NetworkHelper networkHelper = NetworkHelper(path: "weather", query: query);
       var json = await networkHelper.getData();
 
-      Map<String, dynamic> formattedResponse = {
-        "temp": json["main"]["temp"],
-        "city_name": json["name"],
-        "condition": json["weather"][0]["id"]
-      };
-
-      print(formattedResponse);
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) {
+          return LocationScreen(weatherData: json);
+        }),
+      );
     } catch (e) {
       print(e);
     }
@@ -44,6 +45,13 @@ class _LoadingScreenState extends State<LoadingScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return Scaffold(
+      body: Center(
+        child: SpinKitDoubleBounce(
+          color: Colors.white,
+          size: 100.0,
+        ),
+      ),
+    );
   }
 }
