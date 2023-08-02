@@ -1,9 +1,9 @@
 import 'dart:convert' as convert;
-
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 
 class NetworkHelper {
-  static const _apiKey = "827a5ee1239859b4e38d41b142c58568";
+  String _apiKey = dotenv.env['API_KEY'].toString();
   static const _baseUrl = "api.openweathermap.org";
   static const _version = "/data/2.5/";
   static const _appIdPath = "appid";
